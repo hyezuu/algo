@@ -1,0 +1,20 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String str = scanner.nextLine();
+
+        System.out.println(swapCase(str));
+    }
+    public static String swapCase(String str){
+        String answer = "";
+        for(int i=0; i<str.length(); i++){
+            if(Character.isUpperCase(str.charAt(i))){
+                answer+=String.valueOf(Character.toLowerCase(str.charAt(i)));
+            }
+            else answer+=String.valueOf(Character.toUpperCase(str.charAt(i)));
+        }
+        return answer;
+    }
+}
