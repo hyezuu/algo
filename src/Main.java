@@ -1,33 +1,28 @@
 import java.util.*;
 
 public class Main {
-    public ArrayList<String> solution(int n, String[] str){
-        ArrayList<String> answer = new ArrayList<>();
-        for(String x : str){
-            char[] s = x.toCharArray();
-            int lt = 0, rt= x.length()-1;
-            while (lt<rt){
+    public String solution(String str){
+        String answer = "";
+        char[] s = str.toCharArray();
+        int lt=0, rt = str.length()-1;
+        while (lt<rt){
+            if(!Character.isAlphabetic(s[lt])) lt++;
+            else if(!Character.isAlphabetic(s[rt])) rt--;
+            else{
                 char tmp = s[lt];
                 s[lt] = s[rt];
                 s[rt] = tmp;
                 lt++;
                 rt--;
             }
-            String tmp = String.valueOf(s);
-            answer.add(tmp);
         }
+        answer = String.valueOf(s);
         return answer;
     }
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Main main = new Main();
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        String[] str = new String[n];
-        for(int i=0; i<n; i++){
-            str[i] = scanner.next();
-        }
-        for(String answer : main.solution(n, str)){
-            System.out.println(answer);
-        }
+        String str = scanner.next();
+        System.out.println(main.solution(str));
     }
 }
