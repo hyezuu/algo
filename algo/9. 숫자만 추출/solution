@@ -1,0 +1,20 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        Main main = new Main();
+        Scanner scanner = new Scanner(System.in);
+        String str = scanner.nextLine();
+        System.out.print(main.solution(str));
+    }
+    public int solution(String str){
+        char[] c = str.toCharArray();
+        String answer = "";
+        for(char a : c){
+            if(Character.isDigit(a)){
+                answer+=a;
+            }
+        }
+        return Integer.parseInt(answer);
+    }
+}
