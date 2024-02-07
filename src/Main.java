@@ -13,10 +13,12 @@ public class Main {
     public String solution(int num, String str) {
         StringBuilder sb = new StringBuilder();
         for(int i=0; i<num; i++){
-            String str1 = str.substring(i*7,7*(i+1))
-                    .replaceAll("[*]","0")
-                    .replaceAll("#","1");
-            sb.append((char)Integer.parseInt(str1,2));
+            String tmp = str.substring(0, 7).replace('#','1').replace('*','0');
+            int n = Integer.parseInt(tmp, 2);
+//            System.out.println(tmp+" "+n);
+            sb.append((char)n);
+            str = str.substring(7);
+
         }
         return sb.toString();
     }

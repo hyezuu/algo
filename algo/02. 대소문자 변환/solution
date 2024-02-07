@@ -19,7 +19,7 @@ public class Main {
     }
 }
 //ref
-mport java.util.*;
+import java.util.*;
 class Main {
 	public String solution(String str){
 		String answer="";
