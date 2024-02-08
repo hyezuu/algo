@@ -1,0 +1,42 @@
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Main T = new Main();
+        Scanner sc = new Scanner(System.in);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int n = sc.nextInt();
+        int[][] nums = new int[n][n];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                nums[i][j] = sc.nextInt();
+            }
+        }
+        bw.write(T.solution(n, nums));
+        bw.flush();
+    }
+    public String solution(int n, int[][] nums){
+        int max = 0;
+        int sum3 = 0;
+        int sum4 = 0;
+        for(int j=0; j<n; j++){
+            int sum1 = 0;
+            int sum2 = 0;
+            for(int i=0; i<n; i++){
+                sum1+= nums[j][i];
+                sum2+= nums[i][j];
+                if(i==j){
+                    sum3+=nums[j][i];
+                    sum4+=nums[j][n-1-i];
+                }
+            }
+            int sum = Math.max(sum1, sum2);
+            if(sum>max){
+                max=sum;
+            }
+        }
+        return Math.max(Math.max(sum3,sum4),max)+"";
+    }
+}
