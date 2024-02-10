@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -15,18 +15,21 @@ public class Main {
         for(int i=0; i<n; i++){
             nums[i] = Integer.parseInt(stk.nextToken());
         }
-        bw.write(T.solution(n, nums));
+        for(int a : T.solution(n, nums)){
+            bw.write(a+" ");
+        }
         bw.flush();
     }
-    public String solution(int n ,int[] nums){
-        int count = 0, answer = 0;
+    public int[] solution(int n, int[] nums) {
+        int[] answer = new int[n];
         for(int i=0; i<n; i++){
-            if(nums[i]==1){
-                count++;
-                answer+=count;
+            answer[i] = 1;
+            for(int j=0; j<n; j++){
+                if(nums[j]>nums[i]){
+                    answer[i]++;
+                }
             }
-            else count=0;
         }
-        return answer+"";
+        return answer;
     }
 }
