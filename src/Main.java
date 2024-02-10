@@ -23,12 +23,11 @@ public class Main {
     public int[] solution(int n, int[] nums) {
         int[] answer = new int[n];
         for(int i=0; i<n; i++){
-            answer[i] = 1;
+            int cnt = 1;
             for(int j=0; j<n; j++){
-                if(nums[j]>nums[i]){
-                    answer[i]++;
-                }
+                if(nums[j]>nums[i])cnt++;
             }
+            answer[i]=cnt;
         }
         return answer;
     }
