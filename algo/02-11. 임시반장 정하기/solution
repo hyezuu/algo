@@ -13,8 +13,6 @@ public class Main {
                     if(nums[i][k]==nums[j][k]){
                         stu[i]++;
                         stu[j]++;
-                        break;//없으면 안된다..ㅠ
-                        // 왜냐면 3번4번 , 3,5 번 이런식으로해야하는데 너무 여러번 카운팅됨
                     }
                 }
             }
