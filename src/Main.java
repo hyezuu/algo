@@ -18,12 +18,10 @@ public class Main {
         for(int i=0; i<n; i++){
             nums[i] = Integer.parseInt(stk.nextToken());
         }
-        for(int x : T.solution(n, nums)){
-            bw.write(x+" ");
-        }
+        bw.write(T.solution(n, nums));
         bw.flush();
     }
-    public ArrayList<Integer> solution(int n, int[] nums){
+    public String solution(int n, int[] nums){
         ArrayList<Integer> answer = new ArrayList<>();
         answer.add(nums[0]);
         for(int i=1; i<n; i++){
@@ -31,6 +29,6 @@ public class Main {
                 answer.add(nums[i]);
             }
         }
-        return answer;
+
     }
 }
