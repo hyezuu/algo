@@ -1,34 +1,41 @@
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         Main T = new Main();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc = new Scanner(System.in);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int n = Integer.parseInt(br.readLine());
-        int[] nums = new int[n];
-        StringTokenizer stk = new StringTokenizer(br.readLine());
+        int n = sc.nextInt();
+        int[][] nums = new int[n][n];
         for(int i=0; i<n; i++){
-            nums[i] = Integer.parseInt(stk.nextToken());
+            for(int j=0; j<n; j++){
+                nums[i][j] = sc.nextInt();
+            }
         }
-        for(int a : T.solution(n, nums)){
-            bw.write(a+" ");
-        }
+        bw.write(T.solution(n, nums));
         bw.flush();
     }
-    public int[] solution(int n, int[] nums) {
-        int[] answer = new int[n];
+    public String solution(int n, int[][] nums){
+        int answer = Integer.MIN_VALUE;
+        int sum1, sum2;
         for(int i=0; i<n; i++){
-            int cnt = 1;
+            sum1=sum2=0;
             for(int j=0; j<n; j++){
-                if(nums[j]>nums[i])cnt++;
+                sum1+=nums[i][j];//i==행번호, j==열번호 (열 변하고 행 고정 -> 행의 총합)
+                sum2+=nums[j][i];//j==행번호, i==열번호 (행 변하고 열 고정 -> 열의 총합)
             }
-            answer[i]=cnt;
+            answer = Math.max(answer, sum1);
+            answer = Math.max(answer, sum2);
         }
-        return answer;
+        sum1=sum2=0;
+        for(int i=0; i<n; i++){//대각선 합 구하기
+            sum1+=nums[i][i];
+            sum2+=nums[i][n-1-i];
+        }
+        answer = Math.max(answer, sum1);
+        answer = Math.max(answer, sum2);
+        return answer+"";
     }
 }
