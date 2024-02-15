@@ -6,47 +6,34 @@ import java.util.*;
 
 public class Main {
 
-    public String solution(int n, int m, int[] arr1, int[] arr2) {
-        Set<Integer> set = new HashSet<>();
-        Set<Integer> set1 = new TreeSet<>();
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < n + m; i++) {
-            if (i < n) {
-                set.add(arr1[i]);
-            } else {
-                if (!set.add(arr2[i - n])) {
-                    set1.add(arr2[i - n]);
-                }
+    public String solution(int n, int m, int[] arr) {
+        int max = 0;
+        for (int i = 0; i < arr.length - m; i++) {
+            int sum = 0;
+            for (int j = i; j < i + m; j++) {
+                sum += arr[j];
+            }
+            if (sum > max) {
+                max = sum;
             }
         }
-
-        Iterator<Integer> it = set1.iterator();
-        while (it.hasNext()) {
-            sb.append(it.next()).append(" ");
-        }
-
-        return sb.toString();
+        return max + "";
     }
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int n = Integer.parseInt(br.readLine());
-        StringTokenizer nums1 = new StringTokenizer(br.readLine());
-        int[] arr1 = new int[n];
+        StringTokenizer con = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(con.nextToken());
+        int m = Integer.parseInt(con.nextToken());
+        StringTokenizer cnt = new StringTokenizer(br.readLine());
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            arr1[i] = Integer.parseInt(nums1.nextToken());
-        }
-        int m = Integer.parseInt(br.readLine());
-        StringTokenizer nums2 = new StringTokenizer(br.readLine());
-        int[] arr2 = new int[m];
-        for (int i = 0; i < m; i++) {
-            arr2[i] = Integer.parseInt(nums2.nextToken());
+            arr[i] = Integer.parseInt(cnt.nextToken());
         }
 
-        bw.write(T.solution(n, m, arr1, arr2));
+        bw.write(T.solution(n, m, arr));
         bw.flush();
     }
 }
