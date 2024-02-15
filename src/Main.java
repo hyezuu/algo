@@ -5,14 +5,20 @@ import java.io.OutputStreamWriter;
 import java.util.*;
 
 public class Main {
-
     public String solution(int n, int k, int[] arr) {
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i<=n-k; i++){
-            Set<Integer> set = new HashSet<>();
-            for(int j=i; j<i+k; j++){
-                set.add(arr[j]);
+        Set<Integer> set = new HashSet<>();
+        int mem = 0;
+
+        for(int i=0; i<k; i++){
+            if(!set.add(arr[i])){
+                mem = i;
             }
+        }
+        sb.append(set.size()).append(" ");
+        for(int i=k-1; i<n; i++){
+            if(i-k+1!=mem) set.remove(arr[i-k+1]);
+            if(!set.add(arr[i])) mem = i;
             sb.append(set.size()).append(" ");
         }
         return sb.toString();
@@ -25,8 +31,8 @@ public class Main {
         StringTokenizer cond = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(cond.nextToken());
         int k = Integer.parseInt(cond.nextToken());
-        int[] arr = new int[n];
         StringTokenizer days = new StringTokenizer(br.readLine());
+        int[] arr = new int[n];
         for(int i=0; i<n; i++){
             arr[i]= Integer.parseInt(days.nextToken());
         }
