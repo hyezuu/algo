@@ -7,19 +7,14 @@ import java.util.*;
 public class Main {
 
     public String solution(int n, int m, int[] arr) {
-        int max = 0;
-        int sum = 0;
-        for(int i=0; i<m; i++){
-            sum+=arr[i];
-            max = sum;
+        int answer, sum = 0; //초기화안해도대네?
+        for (int i = 0; i < m; i++) sum += arr[i];
+        answer = sum;
+        for (int i = m; i < n; i++) {
+            sum += (arr[i] - arr[i - m]);
+            answer = Math.max(answer, sum);
         }
-        for (int i =m; i < n; i++) {
-            sum+=arr[i]-arr[i-m];
-            if(max<sum){
-                max = sum;
-            }
-        }
-        return max + "";
+        return answer + "";
     }
 
     public static void main(String[] args) throws Exception {
