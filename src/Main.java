@@ -7,14 +7,17 @@ import java.util.*;
 public class Main {
 
     public String solution(int n, int m, int[] arr) {
-        int answer, sum = 0; //초기화안해도대네?
-        for (int i = 0; i < m; i++) sum += arr[i];
-        answer = sum;
-        for (int i = m; i < n; i++) {
-            sum += (arr[i] - arr[i - m]);
-            answer = Math.max(answer, sum);
+        int answer= 0, sum=0, lt=0;
+        for(int rt=0; rt<n; rt++){
+            sum+=arr[rt];
+            if(sum==m)answer++;
+
+            while (sum>=m){
+                sum-=arr[lt++];//같을때 이거 수행하면 빼고 lt++,rt++ 수행
+                if(sum==m) answer++;
+            }
         }
-        return answer + "";
+        return answer+"";
     }
 
     public static void main(String[] args) throws Exception {
@@ -29,7 +32,6 @@ public class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(cnt.nextToken());
         }
-
         bw.write(T.solution(n, m, arr));
         bw.flush();
     }
