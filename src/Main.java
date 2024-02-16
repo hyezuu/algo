@@ -3,20 +3,29 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public ArrayList<Integer> solution(int n, int m, int[] a, int[] b) {
+
+    public ArrayList<Integer> solution(int n, int m, int[] arr1, int[] arr2) {
         ArrayList<Integer> answer = new ArrayList<>();
-        int p1 =0 , p2 =0;
 
-        while(p1<n && p2<m){
-            if(a[p1]<b[p2]) answer.add(a[p1++]); //후위증감연산자!!!!!!! 오
-            else answer.add(b[p2++]);
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        int p1 = 0, p2 = 0;
+        while (p1<n && p2<m){
+            if(arr1[p1]==arr2[p2]) {
+                answer.add(arr1[p1]);
+                p1++;
+                p2++;
+            }
+            else if(arr1[p1]<arr2[p2]){
+                p1++;
+            }
+            else p2++;
         }
-
-        while (p1<n) answer.add(a[p1++]);
-        while (p2<m) answer.add(b[p2++]);
         return answer;
     }
 
@@ -26,19 +35,19 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(br.readLine());
         StringTokenizer nums1 = new StringTokenizer(br.readLine());
-        int[] a = new int[n];
+        int[] arr1 = new int[n];
         for (int i = 0; i < n; i++) {
-            a[i] = Integer.parseInt(nums1.nextToken());
+            arr1[i] = Integer.parseInt(nums1.nextToken());
         }
         int m = Integer.parseInt(br.readLine());
         StringTokenizer nums2 = new StringTokenizer(br.readLine());
-        int[] b = new int[m];
+        int[] arr2 = new int[m];
         for (int i = 0; i < m; i++) {
-            b[i] = Integer.parseInt(nums2.nextToken());
+            arr2[i] = Integer.parseInt(nums2.nextToken());
         }
 
-        for (int i : T.solution(n, m, a, b)) {
-            bw.write(i + " ");
+        for(Integer a : T.solution(n, m, arr1, arr2)){
+            bw.write(a+" ");
         }
         bw.flush();
     }
