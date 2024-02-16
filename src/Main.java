@@ -8,17 +8,15 @@ public class Main {
 
     public String solution(int n, int k, int[] arr) {
         int max = 0, lt = 0, cnt = 0;
-        boolean[] chk = new boolean[arr.length];
         for (int rt = 0; rt < n; rt++) {
             if (arr[rt] == 0) {
                 cnt++;
-                chk[rt] = true;
             }
             while (cnt > k) {
-                if (chk[lt]) cnt--;
+                if (arr[lt]==0) cnt--;
                 lt++;
             }
-            if (cnt <= k) max = Math.max(max, rt - lt + 1);
+            max = Math.max(max, rt - lt + 1);
         }
         return max + "";
     }
