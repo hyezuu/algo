@@ -8,22 +8,19 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    public ArrayList<Integer> solution(int n, int m, int[] arr1, int[] arr2) {
+    public ArrayList<Integer> solution(int n, int m, int[] a, int[] b) {
         ArrayList<Integer> answer = new ArrayList<>();
 
-        Arrays.sort(arr1);
-        Arrays.sort(arr2);
-
+        Arrays.sort(a);
+        Arrays.sort(b);
         int p1 = 0, p2 = 0;
+
         while (p1<n && p2<m){
-            if(arr1[p1]==arr2[p2]) {
-                answer.add(arr1[p1]);
-                p1++;
+            if(a[p1]==b[p2]) {
+                answer.add(a[p1++]);
                 p2++;
             }
-            else if(arr1[p1]<arr2[p2]){
-                p1++;
-            }
+            else if(a[p1]<b[p2]) p1++;
             else p2++;
         }
         return answer;
@@ -35,19 +32,19 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(br.readLine());
         StringTokenizer nums1 = new StringTokenizer(br.readLine());
-        int[] arr1 = new int[n];
+        int[] a = new int[n];
         for (int i = 0; i < n; i++) {
-            arr1[i] = Integer.parseInt(nums1.nextToken());
+            a[i] = Integer.parseInt(nums1.nextToken());
         }
         int m = Integer.parseInt(br.readLine());
         StringTokenizer nums2 = new StringTokenizer(br.readLine());
-        int[] arr2 = new int[m];
+        int[] b = new int[m];
         for (int i = 0; i < m; i++) {
-            arr2[i] = Integer.parseInt(nums2.nextToken());
+            b[i] = Integer.parseInt(nums2.nextToken());
         }
 
-        for(Integer a : T.solution(n, m, arr1, arr2)){
-            bw.write(a+" ");
+        for(Integer c : T.solution(n, m, a, b)){
+            bw.write(c+" ");
         }
         bw.flush();
     }
