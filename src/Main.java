@@ -7,15 +7,16 @@ import java.util.*;
 public class Main {
 
     public String solution(int n) {
-        int cnt = 0, sum=0, lt=1 , rt=1;
-        while (lt<n/2+1){
-            if(sum>n){
-                sum-=lt++;
-            }
-            else sum+=rt++;
-            if(sum==n) {
-                cnt++;
-                sum-=lt++;
+        int cnt = 0, sum=0, lt=0;
+        int m=n/2+1;
+        int[] arr = new int[m];
+        for(int i=0; i<m; i++) arr[i] = i+1;
+        for(int rt = 0; rt<m; rt++){
+            sum+=arr[rt];
+            if(sum == n) cnt++;
+            while (sum>=n){
+                sum-=arr[lt++];
+                if(sum==n) answer++
             }
         }
         return cnt+"";
