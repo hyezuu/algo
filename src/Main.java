@@ -6,14 +6,12 @@ import java.io.OutputStreamWriter;
 public class Main {
 
     public String solution(int n) {
-        int answer=0, cnt=1;
+        int answer=0, cnt=1;//연속된자연수의갯수
         n--;//n=n-1;
         while (n>0){
             cnt++;//cnt==2
-            n=n-cnt;//n=n-2;(1,2를뺐음)
-            if(n%cnt==0){
-                answer++;
-            }
+            n-=cnt;//n=n-2;(1,2를뺐음)
+            if(n%cnt==0) answer++;
         }
         return answer+"";
     }
