@@ -51,7 +51,7 @@ public class Main {
         int sum = 0, cnt =0;
         int lt=0, rt =0;
 
-        while (rt<n&&lt<n){
+        while (rt<n){
             if(sum>m){
                 sum-=arr[lt];
                 lt++;
