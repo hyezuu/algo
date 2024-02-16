@@ -8,7 +8,7 @@ public class Main {
 
     public String solution(int n) {
         int cnt = 0, sum=0, lt=1 , rt=1;
-        while (lt<=(n+1)/2){
+        while (lt<n/2+1){
             if(sum>n){
                 sum-=lt++;
             }
