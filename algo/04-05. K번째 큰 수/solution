@@ -3,16 +3,11 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
-
+//n중 for문은 정말정말쓰기싫어
 public class Main {
 
     public String solution(int n, int k, int[] arr) {
-        HashMap<Integer, Integer> map = new HashMap<>();
         TreeSet<Integer> set = new TreeSet<>(Comparator.reverseOrder());
-
-        for(int i : arr){
-            map.put(i,map.getOrDefault(i,0)+1);
-        }
         int sum;
         for(int i=0 ;i<n-2; i++){
             for(int j=i+1; j<n-1; j++){
