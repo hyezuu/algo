@@ -9,26 +9,19 @@ public class Main {
     public String solution(String a, String b) {
         HashMap<Character, Integer> bm = new HashMap<>();
         HashMap<Character, Integer> am = new HashMap<>();
-        char[] arr = a.toCharArray();
-        int lt =0, cnt=0;
-        for(char c : b.toCharArray()){
-            bm.put(c ,bm.getOrDefault(c,0)+1);
+        for (char x : b.toCharArray()) bm.put(x, bm.getOrDefault(x, 0) + 1);
+        int lt = 0, cnt = 0, len = b.length() - 1;
+        for (int i = 0; i < len; i++) {
+            am.put(a.charAt(i), am.getOrDefault(a.charAt(i), 0) + 1);
         }
-        for(int i =0; i<b.length()-1; i++){
-            am.put(arr[i],am.getOrDefault(arr[i],0)+1);
-        }
-        for(int rt = b.length()-1; rt<a.length(); rt++){
-            am.put(arr[rt], am.getOrDefault(arr[rt],0)+1);
-            if(am.equals(bm)){
-                cnt++;
-            }
-            if(am.get(arr[lt])>1){
-                am.put(arr[lt], am.get(arr[lt])-1);
-            }
-            else am.remove(arr[lt]);
+        for (int rt = len; rt < a.length(); rt++) {
+            am.put(a.charAt(rt), am.getOrDefault(a.charAt(rt), 0) + 1);
+            if (am.equals(bm)) cnt++;
+            am.put(a.charAt(lt), am.get(a.charAt(lt)) - 1);
+            if(am.get(a.charAt(lt))==0) am.remove(a.charAt(lt));
             lt++;
         }
-        return cnt+"";
+        return cnt + "";
     }
 
     public static void main(String[] args) throws Exception {
