@@ -6,29 +6,26 @@ import java.util.*;
 
 public class Main {
 
-    public String solution(String str1, String str2) {
-        Map<Character, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < str1.length(); i++) {
-            map.put(str1.charAt(i), map.getOrDefault(str1.charAt(i), 0) + 1);
+    public String solution(String s1, String s2) {
+        String answer = "YES";
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char x : s1.toCharArray()) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
         }
-        for(char c :str2.toCharArray()){
-            if(map.getOrDefault(c, 0)==0){
-                return "NO";
-            }
-            else map.put(c,map.get(c)-1);
+        for (char x : s2.toCharArray()) {
+            if(!map.containsKey(x)||map.get(x)==0) return "NO";
+            map.put(x, map.get(x)-1);
         }
-
-        return "YES";
+        return answer;
     }
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String str1 = br.readLine();
-        String str2 = br.readLine();
-        bw.write(T.solution(str1, str2));
+        String s1 = br.readLine();
+        String s2 = br.readLine();
+        bw.write(T.solution(s1, s2));
         bw.flush();
     }
 }
