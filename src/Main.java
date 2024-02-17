@@ -6,32 +6,30 @@ import java.util.*;
 
 public class Main {
 
-    public String solution(int n, int k, int[] arr) {
-        int answer = 0, cnt = 0, lt=0;
-        for (int rt = 0; rt < n; rt++) {
-            if (arr[rt] == 0) cnt++;
-            while (cnt > k) {
-                if (arr[lt]==0) cnt--;
-                lt++;
-            }
-            answer = Math.max(answer, rt - lt + 1);
+    public String solution(int n, String str) {
+        char answer =' ';
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(char x : str.toCharArray()){
+            map.put(x, map.getOrDefault(x,0)+1);
         }
-        return answer + "";
+        int max = Integer.MIN_VALUE;
+        for(char key : map.keySet()){
+//            System.out.println(x+" "+map.get(x));
+            if(map.get(key)>max){
+                max = map.get(key);
+                answer = key;
+            }
+        }
+        return answer+"";
     }
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer con = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(con.nextToken());
-        int k = Integer.parseInt(con.nextToken());
-        StringTokenizer nums = new StringTokenizer(br.readLine());
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(nums.nextToken());
-        }
-        bw.write(T.solution(n, k, arr));
+        int n = Integer.parseInt(br.readLine());
+        String str = br.readLine();
+        bw.write(T.solution(n, str));
         bw.flush();
     }
 }
