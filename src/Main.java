@@ -6,26 +6,37 @@ import java.util.*;
 
 public class Main {
 
-    public String solution(String s1, String s2) {
-        String answer = "YES";
-        HashMap<Character, Integer> map = new HashMap<>();
-        for (char x : s1.toCharArray()) {
-            map.put(x, map.getOrDefault(x, 0) + 1);
+    public String solution(int n, int k, int[] arr) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        StringBuilder sb = new StringBuilder();
+        int lt =0, max=0;
+        for(int rt =0; rt<n; rt++){
+            map.put(arr[rt],map.getOrDefault(arr[rt],0)+1);
+            if(rt-lt+1 == k){
+                sb.append(map.size()).append(" ");
+                if(map.get(arr[lt])>1){
+                    map.put(arr[lt],map.get(arr[lt])-1);
+                }
+                else map.remove(arr[lt]);
+                lt++;
+            }
         }
-        for (char x : s2.toCharArray()) {
-            if(!map.containsKey(x)||map.get(x)==0) return "NO";
-            map.put(x, map.get(x)-1);
-        }
-        return answer;
+        return sb.toString();
     }
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String s1 = br.readLine();
-        String s2 = br.readLine();
-        bw.write(T.solution(s1, s2));
+        StringTokenizer con = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(con.nextToken());
+        int k = Integer.parseInt(con.nextToken());
+        StringTokenizer nums = new StringTokenizer(br.readLine());
+        int[] arr = new int[n];
+        for(int i=0 ;i<n; i++){
+            arr[i] = Integer.parseInt(nums.nextToken());
+        }
+        bw.write(T.solution(n, k, arr));
         bw.flush();
     }
 }
