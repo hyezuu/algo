@@ -7,21 +7,18 @@ import java.util.*;
 public class Main {
 
     public String solution(String str1, String str2) {
-        Map<Character,Integer> map1 = new HashMap<>();
-        Map<Character,Integer> map2 = new HashMap<>();
+        Map<Character, Integer> map = new HashMap<>();
 
-        for(int i=0; i<str1.length(); i++){
-            map1.put(str1.charAt(i),map1.getOrDefault(str1.charAt(i),0)+1);
-            map2.put(str2.charAt(i),map2.getOrDefault(str2.charAt(i),0)+1);
+        for (int i = 0; i < str1.length(); i++) {
+            map.put(str1.charAt(i), map.getOrDefault(str1.charAt(i), 0) + 1);
+            map.put(str2.charAt(i), map.getOrDefault(str2.charAt(i), 0) - 1);
         }
-        if(map1.size()==map2.size()){
-            for(char key : map1.keySet()){
-                if(!map1.get(key).equals(map2.get(key))){
-                    return "NO";
-                }
+
+        for (char key : map.keySet()) {
+            if (map.get(key)!=0) {
+                return "NO";
             }
         }
-        else return "NO";
         return "YES";
     }
 
