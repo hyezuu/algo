@@ -8,7 +8,8 @@ public class Main {
 
     public String solution(int n, int k, int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();
-        TreeSet<Integer> set = new TreeSet<>(Collections.reverseOrder());
+//        TreeSet<Integer> set = new TreeSet<>(Collections.reverseOrder());
+        TreeSet<Integer> set = new TreeSet<>();//내림차순
         //Collections.reversOrder() <- 오름차순
         //Comparator.reversOrder() <- 오름차순
         for(int i : arr){
@@ -23,7 +24,13 @@ public class Main {
             }
         }
         int cnt =0;
+//        set.remove(143);
+//        System.out.println(set.size());
+        System.out.println("first :" + set.first());//오름차순-> 최솟값, 내림차순->최댓값
+        System.out.println("Last :" + set.last());//오름차순-> 최댓값, 내림차순->최솟값
+
         for(int i : set){
+//            System.out.println(i);
             cnt++;
 //            System.out.println(cnt+"-"+i);
             if(cnt==k)return i+"";
