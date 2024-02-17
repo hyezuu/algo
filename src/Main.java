@@ -11,14 +11,13 @@ public class Main {
 
         for (int i = 0; i < str1.length(); i++) {
             map.put(str1.charAt(i), map.getOrDefault(str1.charAt(i), 0) + 1);
-            map.put(str2.charAt(i), map.getOrDefault(str2.charAt(i), 0) - 1);
+        }
+        for(char c :str2.toCharArray()){
+            if(!map.containsKey(c)) return "NO";
+            else map.put(c, map.get(c) - 1);
+            if(map.get(c)<0) return "NO";
         }
 
-        for (char key : map.keySet()) {
-            if (map.get(key)!=0) {
-                return "NO";
-            }
-        }
         return "YES";
     }
 
