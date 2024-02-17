@@ -8,26 +8,25 @@ public class Main {
 
     public String solution(int n, int k, int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();
-        TreeSet<Integer> set = new TreeSet<>(Comparator.reverseOrder());
-
+        TreeSet<Integer> set = new TreeSet<>(Collections.reverseOrder());
+        //Collections.reversOrder() <- 오름차순
+        //Comparator.reversOrder() <- 오름차순
         for(int i : arr){
             map.put(i,map.getOrDefault(i,0)+1);
         }
         int sum;
-        for(int i=0 ;i<n-2; i++){
+        for(int i=0 ;i<n-2; i++){//조건 n이어도. j+1, l+1 <-조건때문에 내부for문 수행안한다.
             for(int j=i+1; j<n-1; j++){
                 for(int l=j+1; l<n; l++){
-                    sum = arr[i]+arr[j]+arr[l];
-                    set.add(sum);
+                    set.add(arr[i]+arr[j]+arr[l]);
                 }
             }
         }
         int cnt =0;
-        for(Integer i : set){
+        for(int i : set){
             cnt++;
-            if(cnt==k){
-                return i+"";
-            }
+//            System.out.println(cnt+"-"+i);
+            if(cnt==k)return i+"";
         }
         return "-1";
     }
