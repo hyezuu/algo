@@ -7,17 +7,16 @@ import java.util.*;
 //stack -> last in first out
 public class Main {
     public String solution(String input) {
-        String answer = "YES";
         Stack<Character> stack = new Stack<>();
+        StringBuilder sb = new StringBuilder();
         for(char x : input.toCharArray()){
-            if(x=='(') stack.push(x);
-            else{
-                if(stack.isEmpty())return "NO";//닫는게 더 많음
-                stack.pop();
+            if(stack.isEmpty()&& x!='('){
+                sb.append(x);
             }
+            else if(x=='(') stack.push(x);
+            else if(x==')') stack.pop();
         }
-        if(!stack.isEmpty()) return "NO";//여는게 더 많음
-        return answer;
+        return sb.toString();
     }
 
     public static void main(String[] args) throws Exception {
