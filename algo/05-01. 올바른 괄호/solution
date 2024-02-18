@@ -3,19 +3,19 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
-//stack -> last in first out
+
 public class Main {
 
     public String solution(String input) {
       Stack<Character> st = new Stack<>();
+      if(input.charAt(0)!='('||input.charAt(input.length()-1)!=')'){
+          return "NO";
+      }
       for(int i=0; i<input.length(); i++){
-          if(input.charAt(i)=='('){
-              st.push('(');
+          if(!st.isEmpty()&&!st.peek().equals(input.charAt(i))){
+              st.pop();
           }
-          else {
-              if(st.isEmpty()) return "NO";
-              else st.pop();
-          }
+          else st.push(input.charAt(i));
       }
       if(!st.isEmpty()){
           return "NO";
@@ -31,4 +31,4 @@ public class Main {
         bw.write(T.solution(input));
         bw.flush();
     }
-}
+} // 스택 초보자
