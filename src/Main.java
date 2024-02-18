@@ -6,28 +6,45 @@ import java.util.*;
 
 //stack -> last in first out
 public class Main {
-    public String solution(String input) {
-        Stack<Character> stack = new Stack<>();
-        StringBuilder sb = new StringBuilder();
-        for(char x : input.toCharArray()){
-            if(x==')') {
-                while (stack.pop()!='(');//꺼내고 확인함
+    public String solution(int n, int[][] arr, int m, int[] move) {
+        Stack<Integer> basket = new Stack<>();
+        int cnt = 0;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(arr[j][move[i]-1]!=0){
+                    if(!basket.isEmpty()&&arr[j][move[i]-1]==(basket.peek())){
+                        basket.pop();
+                        cnt++;
+                    }
+                    else basket.push(arr[j][move[i]-1]);
+                    arr[j][move[i]-1]=0;
+                    break;
+                }
             }
-            else stack.push(x);
         }
-//        for(Character c : stack){
-//            sb.append(c);
-//        }
-        for(int i=0; i<stack.size(); i++) sb.append(stack.get(i));
-        return sb.toString();
+        return cnt*2+"";
     }
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String input = br.readLine();
-        bw.write(T.solution(input));
+        int n = Integer.parseInt(br.readLine());
+        int[][] arr = new int[n][n];
+        for(int i=0 ;i<n; i++){
+            StringTokenizer arrs = new StringTokenizer(br.readLine());
+            for(int j=0; j<n; j++){
+                arr[i][j] = Integer.parseInt(arrs.nextToken());
+            }
+        }
+        int m = Integer.parseInt(br.readLine());
+        StringTokenizer moves = new StringTokenizer(br.readLine());
+        int[] move = new int[m];
+        for(int i=0; i<m; i++){
+            move[i] = Integer.parseInt(moves.nextToken());
+        }
+
+        bw.write(T.solution(n, arr, m, move));
         bw.flush();
     }
 }
