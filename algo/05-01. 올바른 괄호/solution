@@ -69,7 +69,7 @@ public class Main {
 }
 //괄호 , 쌍 -> 스택쓰는문제 !!. 쌍의 한가지 (첫번째)만 push, 나머지는 pop
 //isEmpty! push , pop , peek!
-//ref
+//ref!
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
