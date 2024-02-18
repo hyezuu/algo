@@ -3,24 +3,21 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
+
 //stack -> last in first out
 public class Main {
-
     public String solution(String input) {
-      Stack<Character> st = new Stack<>();
-      for(int i=0; i<input.length(); i++){
-          if(input.charAt(i)=='('){
-              st.push('(');
-          }
-          else {
-              if(st.isEmpty()) return "NO";
-              else st.pop();
-          }
-      }
-      if(!st.isEmpty()){
-          return "NO";
-      }
-      else return "YES";
+        String answer = "YES";
+        Stack<Character> stack = new Stack<>();
+        for(char x : input.toCharArray()){
+            if(x=='(') stack.push(x);
+            else{
+                if(stack.isEmpty())return "NO";//닫는게 더 많음
+                stack.pop();
+            }
+        }
+        if(!stack.isEmpty()) return "NO";//여는게 더 많음
+        return answer;
     }
 
     public static void main(String[] args) throws Exception {
