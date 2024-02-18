@@ -28,3 +28,37 @@ public class Main {
         bw.flush();
     }
 }
+//ref
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.*;
+
+//stack -> last in first out
+public class Main {
+    public String solution(String input) {
+        Stack<Character> stack = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        for(char x : input.toCharArray()){
+            if(x==')') {
+                while (stack.pop()!='(');//꺼내고 확인함
+            }
+            else stack.push(x);
+        }
+//        for(Character c : stack){
+//            sb.append(c);
+//        }
+        for(int i=0; i<stack.size(); i++) sb.append(stack.get(i));
+        return sb.toString();
+    }
+
+    public static void main(String[] args) throws Exception {
+        Main T = new Main();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String input = br.readLine();
+        bw.write(T.solution(input));
+        bw.flush();
+    }
+}

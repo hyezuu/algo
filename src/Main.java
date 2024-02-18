@@ -1,4 +1,3 @@
-import javax.print.DocFlavor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -8,36 +7,19 @@ import java.util.*;
 //stack -> last in first out
 public class Main {
     public String solution(String input) {
-        int rs = 0;
-        Stack<Integer> stack = new Stack<>();
-        for(char x :input.toCharArray()){
-            if(Character.isDigit(x)){
-                stack.push(Character.getNumericValue(x));
+        Stack<Character> stack = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        for(char x : input.toCharArray()){
+            if(x==')') {
+                while (stack.pop()!='(');//꺼내고 확인함
             }
-            else{
-                int a = stack.pop();
-//                System.out.println("a : " + a);
-                int b = stack.pop();
-//                System.out.println("b : " + b);
-                if (x=='+'){
-//                    System.out.println( "b: " +b +" a : "+ a +"= a+b" + (a+b));
-                    stack.push(b + a);
-                }
-                else if (x=='-'){
-//                    System.out.println( "b: " +b +" a : "+ a +"= a-b" + (b-a));
-                    stack.push(b - a);
-                }
-                else if (x=='*'){
-//                    System.out.println( "b: " +b +" a : "+ a +"= a*b" + a*b);
-                    stack.push(b * a);
-                }
-                else if (x=='/'){
-//                    System.out.println( "b: " +b +" a : "+ a +"= a/b" + a/b);
-                    stack.push(b / a);
-                }
-            }
+            else stack.push(x);
         }
-        return stack.peek()+"";
+//        for(Character c : stack){
+//            sb.append(c);
+//        }
+        for(int i=0; i<stack.size(); i++) sb.append(stack.get(i));
+        return sb.toString();
     }
 
     public static void main(String[] args) throws Exception {
