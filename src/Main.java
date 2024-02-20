@@ -7,21 +7,19 @@ import java.util.Stack;
 //stack -> last in first out
 public class Main {
     public String solution(String input) {
-        Stack<Integer> stack = new Stack<>();
-        for(char x :input.toCharArray()){ //문자는 기본적으로 정수형타입이니까. 변환해줘야함
-            if(Character.isDigit(x))stack.push(x-'0');//||x-48
-
-            else{
-                int rt = stack.pop();
-                int lt = stack.pop();
-                if (x=='+')stack.push(lt + rt);
-                else if (x=='-')stack.push(lt - rt);
-                else if (x=='*')stack.push(lt * rt);
-                else if (x=='/')stack.push(lt / rt);
+        Stack<Character> stack = new Stack<>();
+        int answer = 0;
+        int cnt = 0;
+        for(char x : input.toCharArray()){
+            if(x=='('){
+                stack.push(x);
+            }
+            else {
+                stack.pop();
+                answer+=stack.size();
             }
         }
-//        return stack.peek()+"";
-        return stack.get(0)+"";
+        return answer+"";
     }
 
     public static void main(String[] args) throws Exception {
@@ -33,4 +31,3 @@ public class Main {
         bw.flush();
     }
 }
-//(Character.getNumericValue(x))
