@@ -6,32 +6,27 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Main {
-    public String solution(String s, String str) {
+    public String solution(String need, String plan) {
         Queue<Character> q = new LinkedList<>();
-        for(char x:s.toCharArray()){
-            q.offer(x);
-        }
-        for(char a :str.toCharArray()){
-            if(q.peek()==a){
-                q.poll();
-                if(q.size()==1){
-                    return "YES";
+        for (char x : need.toCharArray()) q.offer(x);
+        for (char a : plan.toCharArray()) {
+            if (q.contains(a)) {
+                if (q.poll() != a) {
+                    return "NO";
                 }
             }
-            else if(q.contains(a)){
-                return "NO";
-            }
         }
-        return "NO";
+//        return "YES";
+        return q.isEmpty() ? "YES" : "NO";
     }
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String s = br.readLine();
-        String str = br.readLine();
-        bw.write(T.solution(s, str));
+        String need = br.readLine();
+        String plan = br.readLine();
+        bw.write(T.solution(need, plan));
         bw.flush();
     }
 }
