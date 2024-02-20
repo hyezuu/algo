@@ -11,13 +11,11 @@ public class Main {
         for (char x : need.toCharArray()) q.offer(x);
         for (char a : plan.toCharArray()) {
             if (q.contains(a)) {
-                if (q.poll() != a) {
-                    return "NO";
-                }
+                if (q.poll() != a) return "NO";//순서가 다른경우
             }
         }
-//        return "YES";
-        return q.isEmpty() ? "YES" : "NO";
+        if(!q.isEmpty()) return "NO";
+        return "YES";
     }
 
     public static void main(String[] args) throws Exception {
