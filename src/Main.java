@@ -4,24 +4,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Stack;
 
-//stack -> last in first out
+//괄호-> 스택!!!!
 public class Main {
-    public String solution(String input) {
+    public String solution(String str) {
         Stack<Character> stack = new Stack<>();
         int answer = 0;
-        int cnt = 0;
-        for(int i=0 ;i<input.length(); i++){
-            if(input.charAt(i)=='('){
-                stack.push('(');
-            }
+        for(int i=0 ;i<str.length(); i++){
+            if(str.charAt(i)=='(') stack.push('(');
             else {
                 stack.pop();
-                if(input.charAt(i-1)=='('){
-                    answer+=stack.size();
-                }
-                else {
-                    answer++;
-                }
+                if(str.charAt(i-1)=='(') answer+=stack.size();
+                else answer++;
             }
         }
         return answer+"";
@@ -31,8 +24,8 @@ public class Main {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String input = br.readLine();
-        bw.write(T.solution(input));
+        String str = br.readLine();
+        bw.write(T.solution(str));
         bw.flush();
     }
 }
