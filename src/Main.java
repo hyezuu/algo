@@ -4,33 +4,34 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.StringTokenizer;
 
-//FIFO First, in first out
-//추가 -> offer, 꺼내기 -> poll  , q.contains(x)
 public class Main {
-    public String solution(int n, int k) {
-        String answer = "";
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 1; i <= n; i++) q.offer(i);
-        int a, cnt = 0;
-        while (!q.isEmpty()) {
-            for (int i = 1; i < k; i++) q.offer(q.poll());
-            //k==3이면 , 2번까지는 offer
-            q.poll();
-            if (q.size()==1) answer=q.poll()+"";
+    public String solution(String s, String str) {
+        Queue<Character> q = new LinkedList<>();
+        for(char x:s.toCharArray()){
+            q.offer(x);
         }
-        return answer;
+        for(char a :str.toCharArray()){
+            if(q.peek()==a){
+                q.poll();
+                if(q.size()==1){
+                    return "YES";
+                }
+            }
+            else if(q.contains(a)){
+                return "NO";
+            }
+        }
+        return "NO";
     }
 
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer cond = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(cond.nextToken());
-        int k = Integer.parseInt(cond.nextToken());
-        bw.write(T.solution(n, k));
+        String s = br.readLine();
+        String str = br.readLine();
+        bw.write(T.solution(s, str));
         bw.flush();
     }
 }
