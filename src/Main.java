@@ -4,30 +4,38 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
+class Person {
+    int index;
+    int priority;
+    public Person(int index, int priority) {
+        this.index = index;
+        this.priority = priority;
+    }
+}
 public class Main {
     public String solution(int n, int m, int[] arr) {
         StringBuilder sb = new StringBuilder();
-        Queue<int[]> q = new LinkedList<>();
+        Queue<Person> q = new LinkedList<>();
+        int answer = 0;
         for(int i=0; i<n; i++){
-            int[] num = {i, arr[i]};
-            q.offer(num);
+            q.offer(new Person(i, arr[i]));
         }
-        Arrays.sort(arr);
-
-        int rt= n-1, cnt=0;
         while (!q.isEmpty()){
-            if(q.peek()[1]==(arr[rt])){
-                cnt++;
-                if(q.peek()[0]==m) {
-                    sb.append(cnt);
+            Person tmp = q.poll();
+            for(Person x : q){
+                if(x.priority>tmp.priority){
+                    q.offer(tmp);
+                    tmp = null;
                     break;
                 }
-                else {
-                    q.poll();
-                    rt--;
+            }
+            if(tmp!=null){
+                answer++;
+                if(tmp.index ==m) {
+                    sb.append(answer);
+                    break;
                 }
             }
-            else q.offer(q.poll());
         }
         return sb.toString();
     }
