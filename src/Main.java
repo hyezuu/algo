@@ -8,13 +8,15 @@ import java.util.Queue;
 public class Main {
     public String solution(String s, String str) {
         Queue<Character> q = new LinkedList<>();
-        int lt =0;
-        for(char x :str.toCharArray()){
-            if(x==s.charAt(lt)){
-                if(lt<s.length()-1){
-                    lt++;
+        for(char x:s.toCharArray()){
+            q.offer(x);
+        }
+        for(char a :str.toCharArray()){
+            if(q.peek()==a){
+                q.poll();
+                if(q.isEmpty()){
+                    return "YES";
                 }
-                else return "YES";
             }
         }
         return "NO";
