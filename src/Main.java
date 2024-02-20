@@ -15,12 +15,11 @@ public class Main {
                 stack.push('(');
             }
             else {
+                stack.pop();
                 if(input.charAt(i-1)=='('){
-                    stack.pop();
                     answer+=stack.size();
                 }
                 else {
-                    stack.pop();
                     answer++;
                 }
             }
