@@ -6,17 +6,83 @@ import java.util.*;
 
 public class Main {
     public String solution(int n, int m, int[] arr) {
-        Queue<Integer> q = new LinkedList<>();
-        List<Integer> list = new ArrayList<>();
-        int p = arr[m];
-        for(int a : arr){
-            q.offer(a);
-            list.add(a);
+        StringBuilder sb = new StringBuilder();
+        Queue<Map<Integer,Integer>> q = new LinkedList<>();
+        for(int i=0; i<n; i++){
+            Map<Integer, Integer> map = new HashMap<>();
+            map.put(i,arr[i]);
+            q.offer(map);
         }
-        list.sort(Comparator.reverseOrder());
-        // 60 90 60 60 70 60
-        // 90 70 60 60 60
+        Arrays.sort(arr);
 
+        int rt= n-1, cnt=0;
+        while (!q.isEmpty()){
+            if(q.peek().containsValue(arr[rt])){
+                cnt++;
+                if(q.peek().containsKey(m)) {
+                    sb.append(cnt);
+                    break;
+                }
+                else {
+                    q.poll();
+                    rt--;
+                }
+            }
+            else q.offer(q.poll());
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) throws Exception {
+        Main T = new Main();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer cond = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(cond.nextToken());
+        int m = Integer.parseInt(cond.nextToken());
+
+        StringTokenizer nums = new StringTokenizer(br.readLine());
+        int[] arr = new int[n];
+        for(int i=0; i<n; i++){
+            arr[i] = Integer.parseInt(nums.nextToken());
+        }
+        bw.write(T.solution(n, m, arr));
+        bw.flush();
+    }
+}
+//맵 굳이
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.*;
+
+public class Main {
+    public String solution(int n, int m, int[] arr) {
+        StringBuilder sb = new StringBuilder();
+        Queue<int[]> q = new LinkedList<>();
+        for(int i=0; i<n; i++){
+            int[] num = {i, arr[i]};
+            q.offer(num);
+        }
+        Arrays.sort(arr);
+
+        int rt= n-1, cnt=0;
+        while (!q.isEmpty()){
+            if(q.peek()[1]==(arr[rt])){
+                cnt++;
+                if(q.peek()[0]==m) {
+                    sb.append(cnt);
+                    break;
+                }
+                else {
+                    q.poll();
+                    rt--;
+                }
+            }
+            else q.offer(q.poll());
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) throws Exception {
