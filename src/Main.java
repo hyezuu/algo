@@ -8,13 +8,12 @@ public class Main {
     public String solution(int n ,int[] arr){
         StringBuilder sb = new StringBuilder();
         for(int i=1; i<n; i++){
-            int tmp = arr[i];
-            int prev = i-1;
-            while (prev>=0 && arr[prev]>tmp){
-                arr[prev+1] = arr[prev];
-                prev--;
+            int tmp = arr[i], j;
+            for(j=i-1; j>=0; j--){
+                if(arr[j]>tmp)arr[j+1]=arr[j];
+                else break;
             }
-            arr[prev+1]=tmp;
+            arr[j+1] = tmp;
         }
         for(int a : arr){
             sb.append(a).append(" ");
