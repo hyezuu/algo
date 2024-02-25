@@ -1,15 +1,20 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
     public String solution(int n, int[] nums){
         StringBuilder sb = new StringBuilder();
-        int[] temp = nums.clone();
-        Arrays.sort(temp);
+        ArrayList<Integer> answer = new ArrayList<>();
+        int[] tmp = nums.clone();
+        Arrays.sort(tmp);
         for(int i=0; i<n; i++){
-            if(nums[i]!=temp[i])sb.append(i+1).append(" ");
+            if(nums[i]!=tmp[i]) answer.add(i+1);
+        }
+        for(int x : answer){
+            sb.append(x).append(" ");
         }
         return sb.toString();
     }
