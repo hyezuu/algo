@@ -3,19 +3,25 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public String solution(int c, int[] arr) {
+    public String solution(int size,int n,int[] arr) {
         StringBuilder sb = new StringBuilder();
-        int[] cache = new int[c];
+        int[] cache = new int[size];
 
-        for (int i = 0; i < arr.length; i++) {
-            int tmp = arr[i], idx = c - 1;
-            for (int j = 0; j < c; j++) {
-                if (cache[j] == tmp) idx = j;
+        for (int x : arr) {
+            int pos = -1;
+            for(int i=0; i<size; i++) if(x==cache[i]) pos= i;
+            if(pos==-1){
+                for(int i=size-1; i>=1; i--){
+                    cache[i]=cache[i-1];
+                }
+                cache[0]= x;
             }
-            for (int j = idx; j > 0; j--) {
-                cache[j] = cache[j - 1];
+            else {
+                for(int i=pos; i>=1; i--){
+                    cache[i]=cache[i-1];
+                }
+                cache[0]= x;
             }
-            cache[0] = tmp;
         }
         for (int m : cache) {
             sb.append(m).append(" ");
@@ -27,13 +33,11 @@ public class Main {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer cond = new StringTokenizer(br.readLine());
-        int c = Integer.parseInt(cond.nextToken());
+        int size = Integer.parseInt(cond.nextToken());
         int n = Integer.parseInt(cond.nextToken());
         StringTokenizer nums = new StringTokenizer(br.readLine());
         int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(nums.nextToken());
-        }
-        System.out.println(T.solution(c, arr));
+        for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(nums.nextToken());
+        System.out.println(T.solution(size, n , arr));
     }
 }
