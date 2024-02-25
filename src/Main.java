@@ -1,42 +1,26 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public String solution(int size,int n,int[] arr) {
-        StringBuilder sb = new StringBuilder();
-        int[] cache = new int[size];
-
-        for (int x : arr) {
-            int pos = -1;
-            for(int i=0; i<size; i++) if(x==cache[i]) pos= i;
-            if(pos==-1){
-                for(int i=size-1; i>=1; i--){
-                    cache[i]=cache[i-1];
-                }
-            }
-            else {
-                for(int i=pos; i>=1; i--){
-                    cache[i]=cache[i-1];
-                }
-            }
-            cache[0]= x;
+    public String solution(int n, int[] nums){
+        Arrays.sort(nums);
+        for(int i=0; i<n-1; i++){
+            if(nums[i]==nums[i+1])return "D";
         }
-        for (int m : cache) {
-            sb.append(m).append(" ");
-        }
-        return sb.toString();
+        return "U";
     }
-
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer cond = new StringTokenizer(br.readLine());
-        int size = Integer.parseInt(cond.nextToken());
-        int n = Integer.parseInt(cond.nextToken());
-        StringTokenizer nums = new StringTokenizer(br.readLine());
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(nums.nextToken());
-        System.out.println(T.solution(size, n , arr));
+        int n = Integer.parseInt(br.readLine());
+        StringTokenizer fn = new StringTokenizer(br.readLine());
+        int[] nums = new int[n];
+        for(int i=0; i<n; i++){
+            nums[i] = Integer.parseInt(fn.nextToken());
+        }
+
+        System.out.print(T.solution(n, nums));
     }
 }
