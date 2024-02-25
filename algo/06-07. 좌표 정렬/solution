@@ -59,6 +59,10 @@ class Point implements Comparable<Point>{
     @Override
     public int compareTo(Point o){
         if(this.x==o.x) return this.y-o.y;
+        //오름차순정렬인 경우, this :10, o:20, (항상 결과값이 음수가 되도록합니다!)
+        //앞에값 this , o 이 순서대로 정렬되려면 음수값이 리턴되도록!
+        //오름차순이면 10, 20, 내림차순이면 20 10
+        //음수값이니까 -> 오름차순인 경우 this.y-o.y , 내림차순인경우 o.y-this.y
         else return this.x-o.x;
     }
 }
