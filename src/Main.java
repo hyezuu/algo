@@ -8,23 +8,25 @@ import java.util.StringTokenizer;
 public class Main {
     public int count(int[] arr, int capacity){
         int cnt = 1, sum=0;
-        for(int x : arr){
-           if(sum+x>capacity) {
-               cnt++;
-               sum=x;
-           }
-           else sum+=x;
+        Arrays.sort(arr);
+        for(int i=0; i<arr.length; i++){
+            if(sum+capacity>=arr[i]){
+                cnt++;
+            }
+            else sum=arr[i];
         }
         return cnt;
     }
     public int solution(int n, int m, int[] arr){
         int answer = 0;
-        int lt = Arrays.stream(arr).max().getAsInt();
-        int rt = Arrays.stream(arr).sum();
+        int min = Arrays.stream(arr).min().getAsInt();
+        int max = Arrays.stream(arr).max().getAsInt();
+        int lt = 1;
+        int rt = max-min;
 
         while (lt<=rt){
             int mid = (lt+rt)/2;
-            if(count(arr, mid)<=m){
+            if(count(arr, mid)>=m){
                 answer = mid;
                 rt = mid-1;
             }
