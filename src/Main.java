@@ -2,41 +2,33 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 public class Main {
-    public String solution (String str, ArrayList<String> list){
-        int lt = list.size();
-        ArrayList<Character> answer = new ArrayList<>();
-        for(char x : str.toCharArray()){
-            answer.add(x);
-        }
-        for(String s : list){
-            char c = s.charAt(0);
-            if(lt>0) {
-                if(c=='L') lt--;
-                else if(c=='B') answer.remove(lt);
-            }
-            else if (lt<answer.size()) {
-                if(c=='D') lt++;
-            }
-            else if (c=='P') answer.add(lt, s.charAt(2));
-        }
-
-        return String.valueOf(answer);
-    }
     public static void main(String[] args) throws Exception {
-        Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         String str = br.readLine();
+        StringBuilder sb = new StringBuilder(str);
         int n = Integer.parseInt(br.readLine());
-        ArrayList<String> list = new ArrayList<>();
+
+        int lt = str.length();
         for (int i = 0; i < n; i++) {
-            list.add(br.readLine());
+            String s = br.readLine();
+            char c = s.charAt(0);
+            if (c == 'L') lt--;
+            else if (lt > 0 && c == 'B') {
+                sb.deleteCharAt(lt-1);
+                lt--;
+            } else if (c == 'D') lt++;
+            else if (c == 'P') {
+                sb.insert(lt, s.charAt(2));
+                lt++;
+            }
+            if (lt < 0) lt = 0;
+            else if (lt > sb.length()) lt = sb.length();
         }
 
-        bw.write(T.solution(str, list));
+        bw.write(sb.toString());
         bw.flush();
     }
 }
