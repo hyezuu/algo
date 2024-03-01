@@ -2,33 +2,39 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String str = br.readLine();
-        StringBuilder sb = new StringBuilder(str);
+        StringBuilder answer = new StringBuilder();
+
         int n = Integer.parseInt(br.readLine());
 
-        int lt = str.length();
         for (int i = 0; i < n; i++) {
-            String s = br.readLine();
-            char c = s.charAt(0);
-            if (c == 'L') lt--;
-            else if (lt > 0 && c == 'B') {
-                sb.deleteCharAt(lt-1);
-                lt--;
-            } else if (c == 'D') lt++;
-            else if (c == 'P') {
-                sb.insert(lt, s.charAt(2));
-                lt++;
+            String str = br.readLine();
+            Stack<Character> stackL = new Stack<>();
+            Stack<Character> stackR = new Stack<>();
+            for (char c : str.toCharArray()) {
+                if (Character.isDigit(c) || Character.isAlphabetic(c)) {
+                    stackL.push(c);
+                }
+                if (!stackL.isEmpty() && c == '<') stackR.push(stackL.pop());
+                else if (!stackR.isEmpty() && c == '>') stackL.push(stackR.pop());
+                else if (!stackL.isEmpty() && c == '-') stackL.pop();
             }
-            if (lt < 0) lt = 0;
-            else if (lt > sb.length()) lt = sb.length();
+            while (!stackR.isEmpty()){
+                stackL.push(stackR.pop());
+            }
+            for(char c : stackL){
+                answer.append(c);
+            }
+            answer.append("\n");
         }
-
-        bw.write(sb.toString());
+        bw.write(answer.substring(0,answer.length()));
         bw.flush();
     }
 }
