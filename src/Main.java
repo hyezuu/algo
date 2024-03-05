@@ -1,10 +1,11 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-//자연수 N이 입력되면 N 번째까지의 피보나치 수열을 출력하는 프로그램을 작성하세요
 
+//메모이제이션 활용한 1초만에 뽑아내기
 public class Main {
-    static int[] fibo;
+    static int[] fibo; //정적배열 선언해서 저장하는것
     public int DFS(int n){//dfs -> 깊이우선탐색, recursive
+        if(fibo[n]>0) return fibo[n];
         if(n==1) return fibo[n] = 1;
         else if(n==2) return fibo[n] = 1;
         else return fibo[n] = DFS(n-2)+DFS(n-1);
@@ -20,12 +21,3 @@ public class Main {
         }
     }
 }
-/*
-          D(5) ==> 2+3 == 5
-      D(3) + D(4)
-  D(1)+D(2)  D(2)+D(3)
-   1    1     1 + D(1)+D(2)
-                    1 + 1
- */
-
-//위 코드는 성능이 꾸짐 ㅜ숫자 커질때마다
