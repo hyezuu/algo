@@ -6,16 +6,15 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public boolean minD(int[] arr, int capacity, int c){
-        int cnt = 1, sum= arr[0];
+    public int minD(int[] arr, int mid){
+        int cnt = 1, ep = arr[0];
         for(int i=1; i<arr.length; i++){
-            if(sum+capacity<=arr[i]){
+            if(arr[i]-ep >= mid){
                 cnt++;
-                sum = arr[i];
+                ep = arr[i];
             }
-            if(cnt>=c)return true;
         }
-        return false;
+        return cnt;
     }
     public int solution(int n, int c, int[] arr){
         int answer = 0;
@@ -25,7 +24,7 @@ public class Main {
 
         while (lt<=rt){
             int mid = (lt+rt)/2;
-            if(minD(arr, mid, c)){
+            if(minD(arr, mid)>=c){
                 answer = mid;
                 lt = mid+1;
             }
