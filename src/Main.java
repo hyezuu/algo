@@ -7,7 +7,6 @@ import java.util.StringTokenizer;
 
 public class Main {
     public boolean minD(int[] arr, int capacity, int c){
-        Arrays.sort(arr);
         int cnt = 1, sum= arr[0];
         for(int i=1; i<arr.length; i++){
             if(sum+capacity<=arr[i]){
@@ -18,12 +17,11 @@ public class Main {
         }
         return false;
     }
-    public int solution(int c, int[] arr){
+    public int solution(int n, int c, int[] arr){
         int answer = 0;
-        int min = Arrays.stream(arr).min().getAsInt();
-        int max = Arrays.stream(arr).max().getAsInt();
+        Arrays.sort(arr);
         int lt = 1;
-        int rt = max-min;
+        int rt = arr[n-1];
 
         while (lt<=rt){
             int mid = (lt+rt)/2;
@@ -47,7 +45,7 @@ public class Main {
         for(int i=0; i<n; i++){
             arr[i] = Integer.parseInt(nums.nextToken());
         }
-        bw.write(T.solution(c , arr)+"");
+        bw.write(T.solution(n, c , arr)+"");
         bw.flush();
     }
 }
