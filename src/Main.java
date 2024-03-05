@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public int minD(int[] arr, int mid){
+    public int count(int[] arr, int dist){
         int cnt = 1, ep = arr[0];
         for(int i=1; i<arr.length; i++){
-            if(arr[i]-ep >= mid){
+            if(arr[i]-ep >= dist){
                 cnt++;
                 ep = arr[i];
             }
@@ -24,7 +24,7 @@ public class Main {
 
         while (lt<=rt){
             int mid = (lt+rt)/2;
-            if(minD(arr, mid)>=c){
+            if(count(arr, mid)>=c){
                 answer = mid;
                 lt = mid+1;
             }
