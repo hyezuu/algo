@@ -1,50 +1,20 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
-
+//자연수 N이 입력되면 재귀함수를 이용하여 1부터 N까지를 출력하는 프로그램을 작성하세요
 public class Main {
-    public int count(int[] arr, int dist){
-        int cnt = 1, ep = arr[0];
-        for(int i=1; i<arr.length; i++){
-            if(arr[i]-ep >= dist){
-                cnt++;
-                ep = arr[i];
-            }
+    public void solution(int i,int n){
+        if(i>n) return;
+        else {
+            System.out.print(i+" ");
+            solution(i+1, n);
         }
-        return cnt;
-    }
-    public int solution(int n, int c, int[] arr){
-        int answer = 0;
-        Arrays.sort(arr);
-        int lt = 1;
-        int rt = arr[n-1];
-
-        while (lt<=rt){
-            int mid = (lt+rt)/2;
-            if(count(arr, mid)>=c){
-                answer = mid;
-                lt = mid+1;
-            }
-            else rt = mid-1;
-        }
-        return answer;
     }
     public static void main(String[] args) throws Exception {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer stk = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(stk.nextToken());
-        int c = Integer.parseInt(stk.nextToken());
-        StringTokenizer nums = new StringTokenizer(br.readLine());
-        int[] arr = new int[n];
-        for(int i=0; i<n; i++){
-            arr[i] = Integer.parseInt(nums.nextToken());
-        }
-        bw.write(T.solution(n, c , arr)+"");
-        bw.flush();
+        T.solution(1,n);
     }
 }
