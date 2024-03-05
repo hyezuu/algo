@@ -7,19 +7,18 @@ import java.util.StringTokenizer;
 
 public class Main {
     public boolean minD(int[] arr, int capacity, int c){
-        int cnt = 0, sum= arr[0];
         Arrays.sort(arr);
+        int cnt = 1, sum= arr[0];
         for(int i=1; i<arr.length; i++){
-            if(sum+capacity>=arr[i]){
+            if(sum+capacity<=arr[i]){
                 cnt++;
                 sum = arr[i];
             }
-
             if(cnt>=c)return true;
         }
         return false;
     }
-    public int solution(int n, int c, int[] arr){
+    public int solution(int c, int[] arr){
         int answer = 0;
         int min = Arrays.stream(arr).min().getAsInt();
         int max = Arrays.stream(arr).max().getAsInt();
@@ -30,9 +29,9 @@ public class Main {
             int mid = (lt+rt)/2;
             if(minD(arr, mid, c)){
                 answer = mid;
-                rt = mid-1;
+                lt = mid+1;
             }
-            else lt = mid+1;
+            else rt = mid-1;
         }
         return answer;
     }
@@ -42,13 +41,13 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer stk = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(stk.nextToken());
-        int m = Integer.parseInt(stk.nextToken());
+        int c = Integer.parseInt(stk.nextToken());
         StringTokenizer nums = new StringTokenizer(br.readLine());
         int[] arr = new int[n];
         for(int i=0; i<n; i++){
             arr[i] = Integer.parseInt(nums.nextToken());
         }
-        bw.write(T.solution(n, m , arr)+"");
+        bw.write(T.solution(c , arr)+"");
         bw.flush();
     }
 }
