@@ -26,11 +26,8 @@ public class Main {
             int len = Q.size();
             for (int i = 0; i < len; i++) {
                 int tmp = Q.poll();
-                if (tmp == E) {
-                    System.out.print(L);
-                    return;
-                }
-                else if(tmp+1==E||tmp+5==E||tmp-1==E) {
+
+                if(tmp+1==E||tmp+5==E||tmp-1==E) {
                     System.out.print(L+1);
                     return;
                 }
