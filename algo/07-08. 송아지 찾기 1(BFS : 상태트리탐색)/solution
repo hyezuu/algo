@@ -194,3 +194,72 @@ public class Main {
         tree.BFS(S, 0);
     }
 }
+//출력
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+/*
+상태트리
+입력 5, 14
+5 14
+
+0 : 5
+1 : 6 10 4
+2 : 7 11 15
+
+answer : 3
+ */
+public class Main {
+    static int E;
+    static boolean[] chk;
+
+    public void BFS(int root, int L) {
+        Queue<Integer> Q = new LinkedList<>();
+        Q.offer(root);
+        chk[root] = true;
+        while (!Q.isEmpty()) {
+            int len = Q.size();
+            System.out.print(L+" : ");
+            for (int i = 0; i < len; i++) {
+                int tmp = Q.poll();
+                System.out.print(tmp+" ");
+                if(tmp+1==E||tmp+5==E||tmp-1==E) {
+                    System.out.println("\nanswer : "+(L+1));
+                    return;
+                }
+                else {
+                    if (!chk[tmp + 1]) {
+                        Q.offer(tmp + 1);
+                        chk[tmp + 1] = true;
+                    }
+                    if (!chk[tmp + 5]) {
+                        Q.offer(tmp + 5);
+                        chk[tmp + 5] = true;
+                    }
+                    if (tmp-1>0&&!chk[tmp - 1]) {
+                        Q.offer(tmp - 1);
+                        chk[tmp - 1] = true;
+                    }
+                }
+
+            }
+            System.out.println();
+            L++;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        Main tree = new Main();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stk = new StringTokenizer(br.readLine());
+        int S = Integer.parseInt(stk.nextToken());
+        E = Integer.parseInt(stk.nextToken());
+        chk = new boolean[20000];
+        tree.BFS(S, 0);
+    }
+}
+
