@@ -1,50 +1,52 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /*
-자연수 N이 주어지면 1부터 N까지의 원소를 갖는 집합의 부분집합을 모두 출력하는 프로그램을 작성하세요.
-입력 = 자연수 n
-출력 = 각 줄에 하나씩 부분집합을 출력한다 (단, 공집합은 출력하지 않습니다.)
+이진트리 순회(넓이우선탐색 : 레벨탐색)
+루트에서 특정 지점으로 갈 때의 최단거리
+queue를 사용한다 !(dfs는 스택)
+        1           0레벨
+ (왼)2     (오)3     1레벨(루트에서 한번만에 갈 수 있는 노드들)
+ 4    5    6   7    2레벨(루트에서 두번만에 갈 수 있는 노드들)
 
-입력예제 1
-3
-
-출력예제 1
-1 2 3
-1 2
-1 3
-1
-2 3
-2
-3
+레벨 탐색 순회 출력 : 1 2 3 4 5 6 7
  */
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+class Node{
+    int data;
+    Node lt, rt;
+    //lt, rt는 인스턴스 변수
+    public Node(int val){
+        data = val;
+        lt=rt=null;
+    }
+}
 public class Main {
-    static int n;
-    static int[] ch;
-    public void DFS(int L){
-        if(L == n+1){
-            StringBuilder sb = new StringBuilder();
-            for(int i=1; i<=n; i++){
-                if(ch[i]==1){
-                    sb.append(i).append(" ");
-                }
+    Node root;
+    public void BFS(Node root){
+        Queue<Node> Q = new LinkedList<>();
+        Q.offer(root);
+        int L = 0;
+
+        while(!Q.isEmpty()){
+            int len = Q.size();
+            for(int i=0; i<len; i++){
+                Node cur = Q.poll();
+                System.out.print(cur.data+" ");
+                if(cur.lt!=null) Q.offer(cur.lt);
+                if(cur.rt!=null) Q.offer(cur.rt);
             }
-            if(sb.length()!=0) System.out.println(sb);
-        }
-        else{
-            ch[L]=1;
-            DFS(L+1);//lt
-            ch[L]=0;
-            DFS(L+1);//rt
         }
     }
-    public static void main(String[] args) throws IOException {
-        Main T = new Main();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
-        ch = new int[n+1];
-        T.DFS(1);
+
+    public static void main(String[] args) {
+        Main tree = new Main();
+        tree.root = new Node(1);
+        tree.root.lt = new Node(2);
+        tree.root.rt = new Node(3);
+        tree.root.lt.lt = new Node(4);
+        tree.root.lt.rt = new Node(5);
+        tree.root.rt.lt = new Node(6);
+        tree.root.rt.rt = new Node(7);
+        tree.BFS(tree.root);
     }
 }
