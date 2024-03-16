@@ -25,7 +25,7 @@ public class Main {
     public int DFS(int L, Node root){
         if(root.lt==null && root.rt==null) return L;
         else return Math.min(DFS(L+1, root.lt), DFS(L+1, root.rt));
-        //but 자식이 하나만 있으면 npe 발생할 수 있음
+        //but 자식이 하나만 있으면 npe 발생할 수 있음(BFS로 푸는게 best)
     }
     public static void main(String[] args) throws IOException {
         Main tree = new Main();
