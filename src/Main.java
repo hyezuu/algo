@@ -45,39 +45,38 @@ import java.util.StringTokenizer;
  */
 public class Main {
     static int[][] graph;
-    static boolean[][] chk;
-    static int N;
-    static int answer;
-    public int DFS(int V) {
+    static boolean[] chk;
+    static int N, M, answer=0;
+    public void DFS(int V) {
         if(V==N) answer++;
         else {
-            chk[V][V] = true;
-            for(int i=0; i<N; i++){
-                if(!chk[V][i]&&graph[V][i]==1){
-                    chk[V][i]=true;
+            for(int i=1; i<=N; i++){
+                if(graph[V][i]==1&&!chk[i]){
+                    chk[i]=true;
                     DFS(i);
+                    chk[i]=false;
                 }
-                chk[V][i]=false;
             }
         }
-        return answer;
     }
 
     public static void main(String[] args) throws IOException {
         Main T = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer stk = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(stk.nextToken());
-        int M = Integer.parseInt(stk.nextToken());
+        N = Integer.parseInt(stk.nextToken());
+        M = Integer.parseInt(stk.nextToken());
 
         graph = new int[N + 1][N + 1];
-        chk = new boolean[N + 1][N + 1];
+        chk = new boolean[N + 1];
         for (int i = 0; i < M; i++) {
             StringTokenizer stk1 = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(stk1.nextToken());
             int b = Integer.parseInt(stk1.nextToken());
             graph[a][b] = 1;
         }
-        System.out.println(T.DFS(1));
+        chk[1]=true;
+        T.DFS(1);
+        System.out.println(answer);
     }
 }
