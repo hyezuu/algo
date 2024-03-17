@@ -61,11 +61,11 @@ public class Main {
     public void DFS(int V) {
         if(V==N) answer++;
         else {
-            for(int i : graph.get(V)){
-                if(!chk[i]){
-                    chk[i]=true;
-                    DFS(i);
-                    chk[i]=false;
+            for(int nv : graph.get(V)){
+                if(!chk[nv]){
+                    chk[nv]=true;
+                    DFS(nv);
+                    chk[nv]=false;
                 }
             }
         }
