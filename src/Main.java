@@ -46,25 +46,22 @@ public class Main {
     static int N, M;
     static ArrayList<ArrayList<Integer>> graph;
     static boolean[] chk;
-    static int[] answer;
+    static int[] dis;
 
-    public void BFS(int V) {
-        Queue<Integer> Q = new LinkedList<>();
-        Q.offer(V);
-        int L = 0;
-        while (!Q.isEmpty()) {
-            int len = Q.size();
-            for (int i = 0; i < len; i++) {
-                int n = Q.poll();
-                answer[n] = L;
-                for(int nv : graph.get(n)){
-                    if(!chk[nv]){
-                        chk[nv] = true;
-                        Q.offer(nv);
-                    }
+    public void BFS(int v) {
+        Queue<Integer> queue = new LinkedList<>();
+        chk[v] = true;
+        dis[v] = 0;
+        queue.offer(v);
+        while(!queue.isEmpty()){
+            int cv = queue.poll();
+            for(int nv : graph.get(cv)){
+                if(!chk[nv]){
+                    chk[nv] = true;
+                    queue.offer(nv);
+                    dis[nv]=dis[cv]+1; //현재노드에서 한번만에 갈 수 있으니까!
                 }
             }
-            L++;
         }
     }
 
@@ -85,11 +82,10 @@ public class Main {
             graph.get(a).add(b);
         }
         chk = new boolean[N + 1];
-        answer = new int[N + 1];
-        chk[1] = true;
+        dis = new int[N + 1];
         T.BFS(1);
         for (int i = 2; i <= N; i++) {
-            System.out.println(i + " : " + answer[i]);
+            System.out.println(i + " : " + dis[i]);
         }
     }
 }
