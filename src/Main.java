@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.util.*;
 
 /*
@@ -43,26 +44,27 @@ import java.util.*;
 
  */
 public class Main {
-    static int N, M;
-    static ArrayList<ArrayList<Integer>> graph;
-    static boolean[] chk;
-    static int[] dis;
-
-    public void BFS(int v) {
-        Queue<Integer> queue = new LinkedList<>();
-        chk[v] = true;
-        dis[v] = 0;
-        queue.offer(v);
-        while(!queue.isEmpty()){
-            int cv = queue.poll();
-            for(int nv : graph.get(cv)){
-                if(!chk[nv]){
-                    chk[nv] = true;
-                    queue.offer(nv);
-                    dis[nv]=dis[cv]+1; //현재노드에서 한번만에 갈 수 있으니까!
-                }
+    public int[] solution(int[] arr, int[][] queries) {
+        for(int[] query : queries){
+            int s = query[0], e = query[1], k = query[2];
+            for(int i=s; i<=e; i++){
+                if(arr[i]%k==0) arr[i]++;
+                System.out.println("!@#$%^&*(\\'\"<>?:;");
             }
+            Arrays.copyOfRange()
         }
+        Long.MAX_VALUE
+        String my_string = "hello";
+        String str = "11423849239827498274928749283948273498274";
+        BigInteger bigInteger = new BigInteger(str);
+        bigInteger.add()
+        for(char c : my_string.toCharArray()){
+            if(Character.isUpperCase(c))
+        }
+        int a = b= 0;
+        return arr;
+        String str = "11423849239827498274928749283948273498274";
+        BigInteger bigInteger = new BigInteger(str)
     }
 
     public static void main(String[] args) throws IOException {
@@ -75,7 +77,7 @@ public class Main {
         for (int i = 0; i <= N; i++) {
             graph.add(new ArrayList<>());
         }
-        for (int i=0; i<M; i++){
+        for (int i = 0; i < M; i++) {
             StringTokenizer st1 = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st1.nextToken());
             int b = Integer.parseInt(st1.nextToken());
