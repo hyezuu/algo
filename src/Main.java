@@ -1,82 +1,88 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Main {
     public static void main(String[] args) throws IOException {
         Main main = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer con = new StringTokenizer(br.readLine());
-        int r = Integer.parseInt(con.nextToken());
-        int c = Integer.parseInt(con.nextToken());
+        int n = Integer.parseInt(br.readLine());
+        char[][] grid = new char[n][n];
 
-        char[][] arr = new char[r][c];
-
-        for (int i = 0; i < r; i++) {
-            String line = br.readLine();
-            for (int j = 0; j < c; j++) {
-                arr[i][j] = line.charAt(j);
+        for (int i = 0; i < n; i++) {
+            String tmp = br.readLine();
+            for (int j = 0; j < n; j++) {
+                grid[i][j] = tmp.charAt(j);
             }
         }
-        System.out.print(main.solution(r, c, arr));
+
+        System.out.print(main.solution(n, grid));
+        br.close();
     }
 
-    public String solution(int n, int m, char[][] arr) {
+    public String solution(int n, char[][] graph) {
+        boolean[][] visited = new boolean[n][n];
         Queue<int[]> q = new LinkedList<>();
-        int[][] distance = new int[n][m];
+        q.offer(new int[]{0, 0});
+        visited[0][0] = true;
+        int cnt = 1;
+        int[] dx = {-1, 0, 1, 0};
+        int[] dy = {0, 1, 0, -1};
+        StringBuilder sb = new StringBuilder();
 
-        int[] jh = new int[2];
-        int[] fire = new int[2];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(distance[i], -1);
-            for (int j = 0; j < m; j++) {
-                if (arr[i][j] == 'J') {
-                    jh[0] = i;
-                    jh[1] = j;
-                    distance[i][j] = 0;
-                }
-                if (arr[i][j] == 'K') {
-                    fire[0] = i;
-                    fire[1] = j;
-                    distance[i][j] = 0;
-                }
-            }
-        }
-        int[] dx = new int[]{1, 0, -1, 0};
-        int[] dy = new int[]{0, 1, 0, -1};
-        int min = Integer.MAX_VALUE;
-        q.offer(fire);
+        boolean flag = false;
         while (!q.isEmpty()) {
             int[] tmp = q.poll();
+            char cur = graph[tmp[0]][tmp[1]];
+
             for (int i = 0; i < 4; i++) {
                 int nx = tmp[0] + dx[i];
                 int ny = tmp[1] + dy[i];
-                if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[nx][ny] == '.' && distance[nx][ny] == -1) {
+
+                if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
+                if (visited[nx][ny]) continue;
+                if (graph[nx][ny] == cur) {
                     q.offer(new int[]{nx, ny});
-                    distance[nx][ny] = distance[tmp[0]][tmp[1]] + 1;
-                }
-            }
-        }
-        q.offer(jh);
-        while (!q.isEmpty()) {
-            int[] tmp = q.poll();
-            for (int i = 0; i < 4; i++) {
-                int nx = tmp[0] + dx[i];
-                int ny = tmp[1] + dy[i];
-//                if (nx < 0 || nx >= n || ny < 0 || ny >= m) {
-//                    if (distance[tmp[0]][tmp[1]] > 0) min = Math.min(min, distance[tmp[0]][tmp[1]] + 1);
-//                    continue;
-//                }
-                if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[nx][ny] == '.') {
-                    if (distance[nx][ny] > distance[tmp[0]][tmp[1]] + 1) {
+                    visited[nx][ny] = true;
+                } else if (flag) {
+                    if ((cur == 'G' && graph[nx][ny] == 'R') || (cur == 'R' && graph[nx][ny] == 'G')) {
                         q.offer(new int[]{nx, ny});
-                        distance[nx][ny] = distance[tmp[0]][tmp[1]] + 1;
-                        if(nx == 0 || nx == n-1 || ny == 0 || ny == m-1){
-                            min = Math.min(min, distance[nx][ny]+1);
+                        visited[nx][ny] = true;
+                    }
+                }
+
+            }
+            if (q.isEmpty()) {
+                outer : for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        if (!visited[i][j]) {
+                            q.offer(new int[]{i, j});
+                            visited[i][j] = true;
+                            cnt++;
+                            break outer;
                         }
-                    } else distance[nx][ny] = -1;
+                    }
+//                    int nx = tmp[0] + dx[i];
+//                    int ny = tmp[1] + dy[i];
+//
+//                    if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
+//                    if (visited[nx][ny]) continue;
+//                    q.offer(new int[]{nx, ny});
+//                    cnt++;
+//                    visited[nx][ny] = true;
                 }
             }
+            if (q.isEmpty() && !flag) {
+                flag = true;
+                q.offer(new int[]{0, 0});
+                visited = new boolean[n][n];
+                visited[0][0] = true;
+                sb.append(cnt).append(" ");
+                cnt = 1;
+            }
         }
-        return min == Integer.MAX_VALUE ? "IMPOSSIBLE" : min + "";
+        return sb.append(cnt).toString();
     }
 }
