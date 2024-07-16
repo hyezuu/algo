@@ -4,55 +4,58 @@ import java.util.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer con = new StringTokenizer(br.readLine());
-        StringTokenizer stk = new StringTokenizer(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int n = Integer.parseInt(con.nextToken());
-        int m = Integer.parseInt(con.nextToken());
-        int[] arr = new int[m];
-        for (int i = 0; i < m; i++) {
-            arr[i] = Integer.parseInt(stk.nextToken());
+        int T = Integer.parseInt(br.readLine());
+
+        for (int i = 0; i < T; i++) {
+            int n = Integer.parseInt(br.readLine());
+            int[] students = new int[n];
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                students[j] = Integer.parseInt(st.nextToken());
+            }
+            bw.write(bfs(students) + "\n");
         }
-
-        System.out.print(solution(n, arr));
 
         br.close();
+        bw.flush();
+        bw.close();
     }
 
-    private static int solution(int n, int[] arr) {
-
-        Deque<Integer> deque = new LinkedList<>();
-
-        for (int i = 1; i <= n; i++) {
-            deque.addLast(i);
-        }
+    //방문체크는 팀원을 구했거나, 팀원을 구하지 못할경우에 한다
+    //최근에 입력된 값들은 변수에 저장한다.
+    private static int bfs(int[] students) {
+        boolean[] chk = new boolean[students.length];
         int cnt = 0;
-
-        for (int a : arr) {
-            int idx = 0;
-            for (int k : deque) {
-                if(a == k){
-                    int min = Math.min(deque.size() - idx - 1, idx);
-                    cnt+=min;
-                    if (min == idx) {
-                        while (min > 0) {
-                            deque.addLast(deque.pollFirst());
-                            min--;
-                        }
-                        deque.pollFirst();
-                    } else {
-                        while (min > 0) {
-                            deque.addFirst(deque.pollLast());
-                            min--;
-                        }
-                        deque.pollLast();
-                    }
+        for (int i = 0; i < students.length; i++) {
+            Deque<Integer> deque = new ArrayDeque<>();
+            boolean[] visited = new boolean[students.length];
+            if(!chk[i]){
+                deque.add(i);
+                visited[i] = true;
+            }
+            //가장 큐에 들어간 값
+            while (!deque.isEmpty()) {
+                int last = deque.getLast();
+                int next = students[last] - 1;
+                //자기 혼자 팀하고싶을때
+                if(last == next && chk[next]){
+                    chk[next] = true;
                     break;
                 }
-                idx++;
-            }
+                if(visited[next] && deque.peekFirst()==next){
+                    while(!deque.isEmpty()){
+                        chk[deque.removeFirst()] = true;
+                    }
+                }
+                if(chk[next] || visited[next]) break;
 
+                deque.add(next);
+                visited[next] = true;
+            }
         }
+        for(boolean b : chk) if(!b) cnt++;
 
         return cnt;
     }
