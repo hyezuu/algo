@@ -1,73 +1,37 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 class Main {
-    static List<List<Integer>> graph = new ArrayList<>();
-    static int N, M;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
+        char[] arr = st.nextToken().toCharArray();
+        int m = Integer.parseInt(st.nextToken());
 
-        for(int i = 0; i <=N; i++) {
-            graph.add(new LinkedList<>());
-        }
 
-        for(int i = 0; i < M; i++) {
-            st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            graph.get(start).add(end);
-            graph.get(end).add(start);
-        }
-        int min = Integer.MAX_VALUE;
-        int answer = 0;
-
-        for(int i = 1; i <= N; i++) {
-            if(min > solution(i)){
-                min = solution(i);
-                answer = i;
-            }
-        }
-
-        System.out.print(answer);
-
-        br.close();
-    }
-
-    static int solution(int num) {
-        Queue<Integer> q = new LinkedList<>();
-
-        q.offer(num);
-
-        boolean[] visited = new boolean[graph.size()];
-        int chk = N-1;
-        int cnt = 0;
-        visited[num] = true;
-        int sum = 0;
-
-        while(!q.isEmpty() && chk > 0) {
-            cnt ++;
-            int cur = q.poll();
-
-            for(int i : graph.get(cur)) {
-                if(!visited[i]) {
-                    visited[i] = true;
-                    chk--;
-                    q.offer(i);
-                    sum+= cnt;
+        for(int i=0; i<m; i++){
+            char tmp = arr[i];
+            char max = tmp;
+            int idx = i;
+            boolean flag = false;
+            for(int j=i+1; j<arr.length; j++){
+                if(max < arr[j]){
+                    max = arr[j];
+                    idx = j;
+                    flag = true;
                 }
             }
+            arr[idx] = arr[i];
+            arr[i] = max;
         }
-        return sum;
+
+        bw.write(String.valueOf(arr));
+
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
