@@ -2,45 +2,41 @@ import java.io.*;
 import java.util.*;
 
 class Main {
-
+    static int[] arr;
+    static int n;
+    static int m;
+    static BufferedWriter bw;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        char[] arr = st.nextToken().toCharArray();
-        int m = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
-        int i = m < arr.length ? m : m % arr.length + 1, k = 0;
-
-        while (i > 0) {
-            char tmp = arr[k];
-            char max = tmp;
-            int idx = k;
-            boolean flag = false;
-            for (int j = k + 1; j < arr.length; j++) {
-                if (max < arr[j]) {
-                    max = arr[j];
-                    idx = j;
-                    flag = true;
-                }
-            }
-            if(flag){
-                arr[idx] = tmp;
-                arr[k] = max;
-                i--;
-            }
-            k++;
-            if(k == arr.length){
-
-            }
-        }
-
-        bw.write(String.valueOf(arr));
-
+        boolean[] check = new boolean[n+1];
+        solution(0, check , 0);
         bw.flush();
         bw.close();
         br.close();
+    }
+    public static void solution(int idx, boolean[] check, int cnt) throws Exception {
+        if(idx==n) return;
+        if(cnt==m){
+            for(int i=1; i<=n; i++){
+                if(check[i]){
+                    bw.write(i+" ");
+                    cnt--;
+                }
+                if(cnt == 0) break;
+            }
+            bw.newLine();
+            return;
+        }
+        check[idx]=true;
+        solution(idx+1, check, cnt+1);
+        check[idx]=false;
+        solution(idx+1, check, cnt);
     }
 }
